@@ -24,6 +24,9 @@ module.exports = {
           100: "#02050F",
         },
       },
+      fontSize: {
+        xxs: ["10px", "18px"],
+      },
     },
   },
   plugins: [],

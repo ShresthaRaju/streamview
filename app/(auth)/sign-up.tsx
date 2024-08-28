@@ -3,7 +3,7 @@ import { AppText } from "@/components/AppText";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
 import { PasswordInfo } from "@/components/PasswordInfo";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { View, ScrollView, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -55,7 +55,7 @@ const SignUp = () => {
             <Button
               styles="mt-4"
               label="Agree and Continue"
-              onPress={() => {}}
+              onPress={() => router.replace("/create-profile")}
             />
             <View className="flex-row items-center justify-center mt-6 space-x-1">
               <AppText styles="text-xs text-grayscale-70">

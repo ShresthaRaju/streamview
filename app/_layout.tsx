@@ -9,6 +9,14 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "rgb(255, 255, 255)",
+  },
+};
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -30,7 +38,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : MyTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" />

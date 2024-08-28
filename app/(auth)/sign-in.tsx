@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignIn = () => {
   return (
-    <SafeAreaView className="h-full bg-white">
+    <SafeAreaView className="h-full">
       <Header title="Sign In" />
       <ScrollView
         className="px-6 pb-5"

@@ -69,7 +69,7 @@ const Onboarding = () => {
   };
 
   return (
-    <SafeAreaView className="h-full bg-white">
+    <SafeAreaView className="h-full">
       <FlatList
         ref={flatListRef}
         keyExtractor={(item) => item.id}
@@ -107,7 +107,6 @@ const Onboarding = () => {
           ))}
         </View>
       )}
-      <StatusBar style="dark" />
     </SafeAreaView>
   );
 };
