@@ -34,7 +34,7 @@ const Ready = () => {
         <Button
           styles="mt-10"
           label="Continue"
-          onPress={() => router.push("/profile-pin")}
+          onPress={() => router.replace("/interests")}
         />
         <Link href="/" asChild className="mt-5">
           <Pressable>

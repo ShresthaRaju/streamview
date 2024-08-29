@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const ResetPassword = () => {
   return (
-    <SafeAreaView className="h-full">
+    <SafeAreaView className="flex-1">
       <Header title="Create New Password" />
       <ScrollView
         className="px-6 py-5"

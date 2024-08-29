@@ -9,7 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignUp = () => {
   return (
-    <SafeAreaView className="h-full">
+    <SafeAreaView className="flex-1">
       <Header title="Sign Up" />
 
       <ScrollView

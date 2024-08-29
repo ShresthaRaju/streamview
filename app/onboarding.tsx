@@ -1,9 +1,15 @@
 import { OnboardingItem } from "@/components/OnboardingItem";
 import { cn } from "@/lib/utils";
 import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import { FlatList, useWindowDimensions, View, ViewToken } from "react-native";
+import Animated, {
+  Extrapolation,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface OnboardingItem {
@@ -41,25 +47,35 @@ const ONBOARDING_ITEMS: OnboardingItem[] = [
 ];
 
 const Onboarding = () => {
-  const { width } = useWindowDimensions();
-  const [activeItem, setActiveItem] = useState("1");
+  const [activeItem, setActiveItem] = useState(0);
   const flatListRef = useRef<FlatList<OnboardingItem> | null>(null);
+  const scrollX = useSharedValue(0);
+  const { width } = useWindowDimensions();
 
-  const handleViewableItemsChanged = ({
-    viewableItems,
-  }: {
-    viewableItems: ViewToken<OnboardingItem>[];
-  }) => {
-    if (viewableItems.length > 0) {
-      setActiveItem(viewableItems[0].item.id);
+  const onScrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollX.value = event.contentOffset.x;
+    },
+  });
+
+  // using Ref holds a reference to a value or a function, and unlike a function/state,
+  //  updating .current doesn't trigger a re-render of the component.
+  const handleViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: ViewToken<OnboardingItem>[] }) => {
+      if (
+        viewableItems[0].index !== undefined &&
+        viewableItems[0].index !== null
+      ) {
+        setActiveItem(viewableItems[0].index);
+      }
     }
-  };
+  ).current;
 
   const handlePress = () => {
     if (flatListRef.current) {
-      if (Number(activeItem) < 3) {
+      if (activeItem < 2) {
         flatListRef.current.scrollToIndex({
-          index: Number(activeItem),
+          index: activeItem + 1,
           animated: true,
         });
       } else {
@@ -69,8 +85,8 @@ const Onboarding = () => {
   };
 
   return (
-    <SafeAreaView className="h-full">
-      <FlatList
+    <SafeAreaView className="flex-1">
+      <Animated.FlatList
         ref={flatListRef}
         keyExtractor={(item) => item.id}
         data={ONBOARDING_ITEMS}
@@ -82,31 +98,44 @@ const Onboarding = () => {
           />
         )}
         horizontal
-        snapToInterval={width} // Snap to screen width
-        snapToAlignment="center" // Aligns the snap point to the center
-        decelerationRate="fast" // Make snapping smoother
         showsHorizontalScrollIndicator={false}
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
         onViewableItemsChanged={handleViewableItemsChanged}
-        disableIntervalMomentum
+        pagingEnabled
+        bounces={false}
+        onScroll={onScrollHandler}
       />
 
       {/* Pagination */}
-      {Number(activeItem) < 3 && (
-        <View className="flex flex-row justify-center mb-10 space-x-1">
-          {Array.from({ length: ONBOARDING_ITEMS.length }).map((_, index) => (
-            <View
+      <View
+        className={cn(
+          "flex flex-row justify-center mb-10 space-x-1",
+          activeItem === 2 ? "opacity-0" : "opacity-100"
+        )}
+      >
+        {Array.from({ length: ONBOARDING_ITEMS.length }).map((_, index) => {
+          const paginationStyle = useAnimatedStyle(() => {
+            const dotWidth = interpolate(
+              scrollX.value,
+              [(index - 1) * width, index * width, (index + 1) * width],
+              [6, 24, 6],
+              Extrapolation.CLAMP
+            );
+            return { width: dotWidth };
+          });
+
+          return (
+            <Animated.View
               key={index}
               className={cn(
-                "h-[6px] rounded-full",
-                activeItem === (index + 1).toString()
-                  ? "bg-primary w-6"
-                  : "bg-grayscale-10 w-[6px]"
+                "rounded-full h-[6px]",
+                activeItem === index ? "bg-primary" : "bg-grayscale-10"
               )}
+              style={[paginationStyle]}
             />
-          ))}
-        </View>
-      )}
+          );
+        })}
+      </View>
     </SafeAreaView>
   );
 };

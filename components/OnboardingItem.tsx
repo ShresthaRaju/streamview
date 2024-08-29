@@ -7,7 +7,7 @@ interface OnboardingItemProps {
   title: string;
   image: string;
   description: string;
-  activeItem: string;
+  activeItem: number;
   onPress: () => void;
 }
 
@@ -40,7 +40,7 @@ export const OnboardingItem = ({
         onPress={onPress}
         styles="mt-16"
       />
-      {activeItem === "3" && (
+      {activeItem === 2 && (
         <Link replace asChild href="/sign-in" className="mt-6">
           <Pressable>
             <AppText styles="font-medium text-center text-grayscale-50">

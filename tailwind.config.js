@@ -11,6 +11,7 @@ module.exports = {
         error: "#E53935",
         warning: "#FACC15",
         line: {
+          DEFAULT: "#E9EBED",
           dark: "#282837",
           light: "#D9D9D9",
         },
@@ -21,6 +22,7 @@ module.exports = {
           50: "#7D7E83",
           70: "#4C4E55",
           80: "#34363E",
+          80: "#1B1D26",
           100: "#02050F",
         },
       },

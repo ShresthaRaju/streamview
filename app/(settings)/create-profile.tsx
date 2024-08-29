@@ -27,7 +27,7 @@ const CreateProfile = () => {
   };
 
   return (
-    <SafeAreaView className="h-full">
+    <SafeAreaView className="flex-1">
       <Header title="Create Profile" />
       <ScrollView
         contentContainerStyle={{ height: "100%" }}

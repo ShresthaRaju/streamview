@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const ForgotPassword = () => {
   return (
-    <SafeAreaView className="h-full">
+    <SafeAreaView className="flex-1">
       <Header title="Forgot Password" />
       <View className="px-6 py-5">
         <AppText styles="text-grayscale-70 text-sm tracking-[0.07px] text-center my-10 leading-[22px]">
