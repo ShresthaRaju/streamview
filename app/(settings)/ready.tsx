@@ -36,7 +36,7 @@ const Ready = () => {
           label="Continue"
           onPress={() => router.replace("/interests")}
         />
-        <Link href="/" asChild className="mt-5">
+        <Link href="/home" asChild className="mt-5">
           <Pressable>
             <AppText styles="text-primary text-center font-semibold">
               Skip for Now

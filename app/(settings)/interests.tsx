@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { SearchInput } from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
 import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useState } from "react";
 import { View, ScrollView, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -78,7 +79,11 @@ const ChooseInterests = () => {
               </Pressable>
             ))}
           </View>
-          <Button label="Next" styles="mt-auto" />
+          <Button
+            label="Next"
+            styles="mt-auto"
+            onPress={() => router.replace("/home")}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
