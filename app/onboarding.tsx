@@ -128,7 +128,7 @@ const Onboarding = () => {
             <Animated.View
               key={index}
               className={cn(
-                "rounded-full h-[6px]",
+                "rounded-full h-1.5",
                 activeItem === index ? "bg-primary" : "bg-grayscale-10"
               )}
               style={[paginationStyle]}

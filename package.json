@@ -51,7 +51,7 @@
     "jest-expo": "~51.0.4",
     "react-test-renderer": "18.3.1",
     "tailwindcss": "3.3.2",
-    "typescript": "~5.5.4"
+    "typescript": "~5.3.3"
   },
   "private": true
 }
